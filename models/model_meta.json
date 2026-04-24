@@ -1,0 +1,40 @@
+{
+  "metrics": {
+    "accuracy": 0.7846,
+    "precision": 0.7772,
+    "recall": 0.7979,
+    "f1_score": 0.7874,
+    "roc_auc": 0.8674
+  },
+  "threshold": 0.2722772277227723,
+  "feature_names": [
+    "arr_flights_log",
+    "carrier_delay_pct",
+    "weather_delay_pct",
+    "nas_delay_pct",
+    "security_delay_pct",
+    "late_aircraft_delay_pct",
+    "cancel_rate",
+    "month_sin",
+    "month_cos",
+    "carrier_enc",
+    "airport_enc",
+    "distance_bucket"
+  ],
+  "shap_mean_abs": {
+    "arr_flights_log": 0.5057862997055054,
+    "carrier_delay_pct": 0.21787789463996887,
+    "weather_delay_pct": 0.35878419876098633,
+    "nas_delay_pct": 0.41564130783081055,
+    "security_delay_pct": 0.14383423328399658,
+    "late_aircraft_delay_pct": 0.18157020211219788,
+    "cancel_rate": 0.7490030527114868,
+    "month_sin": 0.0,
+    "month_cos": 0.0,
+    "carrier_enc": 0.6680259108543396,
+    "airport_enc": 0.20596076548099518,
+    "distance_bucket": 0.06563430279493332
+  },
+  "n_train": 1503,
+  "n_test": 376
+}
