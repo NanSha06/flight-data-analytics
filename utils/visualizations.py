@@ -172,6 +172,8 @@ def airport_delay_map(df: pd.DataFrame) -> go.Figure:
         lambda x: x[:35] + "…" if len(x) > 35 else x
     )
 
+    agg["label"] = agg["arr_flights"].apply(lambda x: f"{x:,.0f} flights")
+
     fig = px.bar(
         agg.sort_values("delay_rate"),
         x="delay_rate",
@@ -179,8 +181,8 @@ def airport_delay_map(df: pd.DataFrame) -> go.Figure:
         orientation="h",
         color="delay_rate",
         color_continuous_scale="RdYlGn_r",
-        size="arr_flights",
-        size_max=20,
+        text="label",
+        hover_data={"arr_flights": ":,.0f", "delay_rate": ":.1%"},
         title="Top 30 Most Delayed Airports",
         labels={"delay_rate": "Avg Delay Rate", "airport_short": ""},
     )
