@@ -35,7 +35,7 @@ check("Columns present", lambda: all(c in df.columns for c in
 check("No nulls", lambda: df.isnull().sum().sum() == 0)
 
 print("\n2. Feature engineering")
-X, y, sc, ce, ae, thr = build_features(df, fit=True)
+X, y, sc, ce, ae, thr, dbins = build_features(df, fit=True)
 check("Feature shape", lambda: str(X.shape))
 check("Target balance", lambda: f"high_delay={y.mean():.1%}")
 check("Threshold value", lambda: f"threshold={thr:.4f}")
@@ -52,6 +52,7 @@ X_row = build_inference_row(
     security_delay_pct=0.01, late_aircraft_delay_pct=0.29, cancel_rate=0.015,
     scaler=bundle['scaler'], carrier_enc=bundle['carrier_enc'],
     airport_enc=bundle['airport_enc'], threshold=bundle['threshold'],
+    distance_bins=bundle.get('distance_bins'),
 )
 pred  = int(bundle['model'].predict(X_row)[0])
 prob  = float(bundle['model'].predict_proba(X_row)[0][1])

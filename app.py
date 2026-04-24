@@ -42,6 +42,7 @@ SCALER      = BUNDLE["scaler"]
 CARRIER_ENC = BUNDLE["carrier_enc"]
 AIRPORT_ENC = BUNDLE["airport_enc"]
 THRESHOLD   = BUNDLE["threshold"]
+DISTANCE_BINS = BUNDLE.get("distance_bins", None)
 
 # ── Pre-compute anomalies once ─────────────────────────────────────────────
 print("[app] Computing anomalies …")
@@ -150,6 +151,7 @@ def predict():
             carrier_enc=CARRIER_ENC,
             airport_enc=AIRPORT_ENC,
             threshold=THRESHOLD,
+            distance_bins=DISTANCE_BINS,
         )
 
         prediction  = int(MODEL.predict(X_row)[0])

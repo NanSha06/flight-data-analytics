@@ -49,7 +49,7 @@ def train(save: bool = True) -> dict:
     """
     # ── Data ──────────────────────────────────────────────────────────────
     df = load_data()
-    X, y, scaler, carrier_enc, airport_enc, threshold = build_features(df, fit=True)
+    X, y, scaler, carrier_enc, airport_enc, threshold, distance_bins = build_features(df, fit=True)
     X_train, X_test, y_train, y_test = train_test_split_data(X, y)
 
     print(f"[trainer] Train: {len(X_train):,} | Test: {len(X_test):,}")
@@ -114,11 +114,12 @@ def train(save: bool = True) -> dict:
     # ── Persist artifacts ──────────────────────────────────────────────────
     if save:
         bundle = {
-            "model":       model,
-            "scaler":      scaler,
-            "carrier_enc": carrier_enc,
-            "airport_enc": airport_enc,
-            "threshold":   threshold,
+            "model":         model,
+            "scaler":        scaler,
+            "carrier_enc":   carrier_enc,
+            "airport_enc":   airport_enc,
+            "threshold":     threshold,
+            "distance_bins": distance_bins,
             "feature_names": ALL_FEATURES,
             "shap_mean_abs": mean_abs_shap,
         }
@@ -138,16 +139,17 @@ def train(save: bool = True) -> dict:
         print(f"[trainer] Metadata saved → {META_PATH}")
 
     return {
-        "model":        model,
-        "scaler":       scaler,
-        "carrier_enc":  carrier_enc,
-        "airport_enc":  airport_enc,
-        "threshold":    threshold,
-        "metrics":      metrics,
+        "model":         model,
+        "scaler":        scaler,
+        "carrier_enc":   carrier_enc,
+        "airport_enc":   airport_enc,
+        "threshold":     threshold,
+        "distance_bins": distance_bins,
+        "metrics":       metrics,
         "feature_names": ALL_FEATURES,
-        "shap_values":  shap_values,
-        "X_test":       X_test,
-        "y_test":       y_test,
+        "shap_values":   shap_values,
+        "X_test":        X_test,
+        "y_test":        y_test,
         "mean_abs_shap": mean_abs_shap,
     }
 

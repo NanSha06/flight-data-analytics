@@ -107,10 +107,14 @@ def build_features(
         ).fillna(0).astype(int)
     else:
         # For inference, assign bucket using stored bin edges
-        bins = np.array(distance_bins)
-        feat["distance_bucket"] = np.clip(
-            np.searchsorted(bins[1:-1], feat["arr_flights"].values), 0, 4
-        ).astype(int)
+        if distance_bins is not None and len(distance_bins) > 2:
+            bins = np.array(distance_bins)
+            feat["distance_bucket"] = np.clip(
+                np.searchsorted(bins[1:-1], feat["arr_flights"].values), 0, 4
+            ).astype(int)
+        else:
+            # Fallback: assign middle bucket if bins not available
+            feat["distance_bucket"] = 2
 
     # ── Label encode carrier and airport ──────────────────────────────────
     if fit:

@@ -237,11 +237,12 @@ with st.spinner("🔄 Loading data and model …"):
     anom_df = get_anomalies(df)
     summary = compute_dataset_summary(df)
 
-MODEL       = bundle["model"]
-SCALER      = bundle["scaler"]
-CARRIER_ENC = bundle["carrier_enc"]
-AIRPORT_ENC = bundle["airport_enc"]
-THRESHOLD   = bundle["threshold"]
+MODEL        = bundle["model"]
+SCALER       = bundle["scaler"]
+CARRIER_ENC  = bundle["carrier_enc"]
+AIRPORT_ENC  = bundle["airport_enc"]
+THRESHOLD    = bundle["threshold"]
+DISTANCE_BINS = bundle.get("distance_bins", None)
 
 CARRIERS = sorted(df["carrier"].unique().tolist())
 AIRPORTS = sorted(df["airport"].unique().tolist())
@@ -471,6 +472,7 @@ with tabs[2]:
                     late_aircraft_delay_pct=late_ac_pct, cancel_rate=cancel_rate,
                     scaler=SCALER, carrier_enc=CARRIER_ENC,
                     airport_enc=AIRPORT_ENC, threshold=THRESHOLD,
+                    distance_bins=DISTANCE_BINS,
                 )
                 prediction  = int(MODEL.predict(X_row)[0])
                 probability = float(MODEL.predict_proba(X_row)[0][1])
